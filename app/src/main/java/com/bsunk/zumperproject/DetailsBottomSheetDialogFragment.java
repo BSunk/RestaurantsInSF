@@ -127,6 +127,7 @@ public class DetailsBottomSheetDialogFragment extends BottomSheetDialogFragment 
         }
     }
 
+    //Opens the dialer app to dial the phone number
     @OnClick(R.id.call_button)
     public void onClickCall() {
         if (placeDetails.getResult().getFormattedPhoneNumber()!=null) {

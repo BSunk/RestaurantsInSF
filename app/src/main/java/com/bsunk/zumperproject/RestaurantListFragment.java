@@ -43,7 +43,6 @@ public class RestaurantListFragment extends Fragment implements RestaurantListAd
 
     private Restaurants restaurantsList;
 
-
     public RestaurantListFragment() {
         // Required empty public constructor
     }
