@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
@@ -132,12 +133,19 @@ public class RestaurantMapFragment extends Fragment{
                 @Override
                 public void onResponse(Call<Restaurants> call, Response<Restaurants> response) {
                     restaurantsList = response.body();
-                    if(mClusterManager==null) {
-                        setUpCluster(); }
+
+                    if(restaurantsList.getStatus().equals("OVER_QUERY_LIMIT")) {
+                        showOverLimitError();
+                    }
+
                     else {
-                        mClusterManager.clearItems();
-                        addCluster();
-                        mClusterManager.cluster();
+                        if (mClusterManager == null) {
+                            setUpCluster();
+                        } else {
+                            mClusterManager.clearItems();
+                            addCluster();
+                            mClusterManager.cluster();
+                        }
                     }
                     progressBar.setVisibility(View.GONE);
                 }
@@ -168,6 +176,11 @@ public class RestaurantMapFragment extends Fragment{
                 mClusterManager.addItem(result);
             }
         }
+    }
+
+    private void showOverLimitError() {
+        final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_over_limit_error), Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     private void setUpCluster() {

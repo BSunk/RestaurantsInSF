@@ -107,7 +107,10 @@ public class DetailsBottomSheetDialogFragment extends BottomSheetDialogFragment 
         if(placeDetails.getResult().getPhotos()!=null) {
             String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="
                     + BuildConfig.PLACES_API_KEY + "&photoreference=" + placeDetails.getResult().getPhotos().get(0).getPhotoReference();
-            Picasso.with(getContext()).load(url).into(image);
+            Picasso.with(getContext()).load(url).error(R.drawable.no_pic).placeholder(R.drawable.no_pic).into(image);
+        }
+        else {
+            Picasso.with(getContext()).load(R.drawable.no_pic).into(image);
         }
         if(placeDetails.getResult().getFormattedPhoneNumber()!=null) {
             phone.setText(placeDetails.getResult().getFormattedPhoneNumber());

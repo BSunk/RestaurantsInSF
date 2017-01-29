@@ -48,7 +48,10 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
                 String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="
                         + BuildConfig.PLACES_API_KEY + "&photoreference=" + result.getPhotos().get(0).getPhotoReference();
                 Log.v("TAG", url);
-                Picasso.with(mContext).load(url).into(imageView);
+                Picasso.with(mContext).load(url).error(R.drawable.no_pic).placeholder(R.drawable.no_pic).into(imageView);
+            }
+            else {
+                Picasso.with(mContext).load(R.drawable.no_pic).into(imageView);
             }
 
             itemView.setOnClickListener(new View.OnClickListener() {

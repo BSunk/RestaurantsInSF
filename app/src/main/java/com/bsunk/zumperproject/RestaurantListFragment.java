@@ -89,8 +89,13 @@ public class RestaurantListFragment extends Fragment implements RestaurantListAd
                 @Override
                 public void onResponse(Call<Restaurants> call, Response<Restaurants> response) {
                     restaurantsList = response.body();
+                    if(restaurantsList.getStatus().equals("OVER_QUERY_LIMIT")) {
+                        showOverLimitError();
+                    }
+                    else {
+                        setData();
+                    }
                     refreshLayout.setRefreshing(false);
-                    setData();
                 }
                 //Something wrong retrieving the data so display a message to user and give an option to retry
                 @Override
@@ -109,6 +114,10 @@ public class RestaurantListFragment extends Fragment implements RestaurantListAd
             });
     }
 
+    private void showOverLimitError() {
+        final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_over_limit_error), Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
 
     private void setData() {
         recyclerView.setAdapter(new RestaurantListAdapter(restaurantsList.getResults(), getContext(), this ));

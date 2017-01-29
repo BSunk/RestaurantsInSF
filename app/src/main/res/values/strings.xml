@@ -2,6 +2,7 @@
     <string name="app_name">ZumperProject</string>
     <string name="title_activity_maps">Restaurants in San Francisco</string>
     <string name="load_error">Error loading data</string>
+    <string name="load_over_limit_error">API KEY over limit. Please try again later.</string>
     <string name="retry">Retry</string>
     <string name="info">Zoom in to view restaurants</string>
 
