@@ -1,6 +1,7 @@
 package com.bsunk.zumperproject;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -99,15 +100,18 @@ public class RestaurantListFragment extends Fragment implements RestaurantListAd
                 //Something wrong retrieving the data so display a message to user and give an option to retry
                 @Override
                 public void onFailure(Call<Restaurants> call, Throwable t) {
-                    final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_error), Snackbar.LENGTH_INDEFINITE);
-                    snackbar.setAction(getString(R.string.retry), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            getRestaurantsCall();
-                            snackbar.dismiss();
-                        }
-                    });
-                    snackbar.show();
+                    Activity activity = getActivity();
+                    if(activity!=null && isAdded()) {
+                        final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_error), Snackbar.LENGTH_INDEFINITE);
+                        snackbar.setAction(getString(R.string.retry), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                getRestaurantsCall();
+                                snackbar.dismiss();
+                            }
+                        });
+                        snackbar.show();
+                    }
                     refreshLayout.setRefreshing(false);
                 }
             });

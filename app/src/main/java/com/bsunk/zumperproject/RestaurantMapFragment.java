@@ -1,6 +1,7 @@
 package com.bsunk.zumperproject;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -154,15 +155,19 @@ public class RestaurantMapFragment extends Fragment{
                 public void onFailure(Call<Restaurants> call, Throwable t) {
                     Log.v(TAG, "Failed to get data");
                     Log.v(TAG, t.toString());
-                    final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_error), Snackbar.LENGTH_INDEFINITE);
-                    snackbar.setAction(getString(R.string.retry), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            getRestaurantsCall();
-                            snackbar.dismiss();
-                        }
-                    });
-                    snackbar.show();
+
+                    Activity activity = getActivity();
+                    if(activity!=null && isAdded()) {
+                        final Snackbar snackbar = Snackbar.make(coordinatorLayout, getString(R.string.load_error), Snackbar.LENGTH_INDEFINITE);
+                        snackbar.setAction(getString(R.string.retry), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                getRestaurantsCall();
+                                snackbar.dismiss();
+                            }
+                        });
+                        snackbar.show();
+                    }
                     progressBar.setVisibility(View.GONE);
                 }
             }); }

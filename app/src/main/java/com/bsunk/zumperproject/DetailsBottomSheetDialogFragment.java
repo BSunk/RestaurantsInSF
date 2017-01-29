@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 import com.bsunk.zumperproject.data.model.place.Place;
 import com.bsunk.zumperproject.data.rest.ApiClient;
 import com.bsunk.zumperproject.data.rest.PlacesInterface;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -84,7 +82,9 @@ public class DetailsBottomSheetDialogFragment extends BottomSheetDialogFragment 
             public void onResponse(Call<Place> call, Response<Place> response) {
                 progressBar.setVisibility(View.GONE);
                 placeDetails = response.body();
-                setInformation();
+                if(placeDetails!=null) {
+                    setInformation();
+                }
             }
 
             @Override
@@ -101,29 +101,30 @@ public class DetailsBottomSheetDialogFragment extends BottomSheetDialogFragment 
     }
 
     public void setInformation() {
-        if(placeDetails.getResult().getName()!=null) {
-            name.setText(placeDetails.getResult().getName());
-        }
-        if(placeDetails.getResult().getPhotos()!=null) {
-            String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="
-                    + BuildConfig.PLACES_API_KEY + "&photoreference=" + placeDetails.getResult().getPhotos().get(0).getPhotoReference();
-            Picasso.with(getContext()).load(url).error(R.drawable.no_pic).placeholder(R.drawable.no_pic).into(image);
-        }
-        else {
-            Picasso.with(getContext()).load(R.drawable.no_pic).into(image);
-        }
-        if(placeDetails.getResult().getFormattedPhoneNumber()!=null) {
-            phone.setText(placeDetails.getResult().getFormattedPhoneNumber());
-        }
-        if(placeDetails.getResult().getFormattedAddress()!=null) {
-            address.setText(placeDetails.getResult().getFormattedAddress());
-        }
-        if(placeDetails.getResult().getRating()!=null) {
-            ratingBar.setRating(placeDetails.getResult().getRating().floatValue());
-        }
-        if (placeDetails.getResult().getReviews()!=null) {
-            reviewsRecyclerView.setAdapter(new ReviewsAdapter(placeDetails.getResult().getReviews()));
-            reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(placeDetails.getResult()!=null) {
+            if (placeDetails.getResult().getName() != null) {
+                name.setText(placeDetails.getResult().getName());
+            }
+            if (placeDetails.getResult().getPhotos() != null) {
+                String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="
+                        + BuildConfig.PLACES_API_KEY + "&photoreference=" + placeDetails.getResult().getPhotos().get(0).getPhotoReference();
+                Picasso.with(getContext()).load(url).error(R.drawable.no_pic).placeholder(R.drawable.no_pic).into(image);
+            } else {
+                Picasso.with(getContext()).load(R.drawable.no_pic).into(image);
+            }
+            if (placeDetails.getResult().getFormattedPhoneNumber() != null) {
+                phone.setText(placeDetails.getResult().getFormattedPhoneNumber());
+            }
+            if (placeDetails.getResult().getFormattedAddress() != null) {
+                address.setText(placeDetails.getResult().getFormattedAddress());
+            }
+            if (placeDetails.getResult().getRating() != null) {
+                ratingBar.setRating(placeDetails.getResult().getRating().floatValue());
+            }
+            if (placeDetails.getResult().getReviews() != null) {
+                reviewsRecyclerView.setAdapter(new ReviewsAdapter(placeDetails.getResult().getReviews()));
+                reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
         }
     }
 
