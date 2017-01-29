@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ZumperProject</string>
+    <string name="title_activity_maps">Restaurants in San Francisco</string>
+    <string name="load_error">Error loading data</string>
+    <string name="retry">Retry</string>
+    <string name="info">Zoom in to view restaurants</string>
+
+    <string name="image_view_content_description">Restaurant image</string>
+
+    <string name="tab1">MAP</string>
+    <string name="tab2">LIST</string>
+
+    <string name="shared_prefs_key">position</string>
+    <string name="shared_prefs_default">37.7434432, -122.4279874</string>
+
+</resources>

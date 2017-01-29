@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:id="@+id/bottom_sheet"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_fragment_title_bar_width"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorTitleBar">
+
+            <TextView
+                android:id="@+id/name"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:layout_marginTop="@dimen/dialog_fragment_margin_top"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_marginTop="@dimen/dialog_fragment_margin_top"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/details_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:contentDescription="@string/image_view_content_description"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_marginTop="@dimen/dialog_fragment_margin_top"
+            android:paddingStart="@dimen/_dialog_fragment_padding_left_right"
+            android:paddingEnd="@dimen/_dialog_fragment_padding_left_right"
+            android:layout_gravity="center"
+            android:textSize="@dimen/dialog_fragment_font_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/call_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/phone"
+                android:layout_marginEnd="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_call_black_24dp"/>
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_marginTop="@dimen/dialog_fragment_margin_top"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/dialog_fragment_font_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/review_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:layout_margin="@dimen/_dialog_fragment_padding_left_right">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
